@@ -15,7 +15,9 @@ If you don't have one and are interesting with it, please contact with us by e-m
 
 ### Install LIPS 3D depth camera SDK ###
 
-* Install wizard will notify to install OpenNI if OpenNI is not installed well.
+* Download SDK from [LIPS SDK] (http://www.lips-hci.com/products/sdk/)
+
+* Install wizard will notify to install OpenNI2 if OpenNI2 is not installed well.
 
 ### Download LIPS Sample Code ###
 
@@ -45,16 +47,14 @@ You can base the samples we provided to develop your own application. What you n
 
 1. Right click the project in Solution Explorer and choose Properties
 
-2. Expand "VC++ Directories", add "C:\Program Files\OpenNI\Include" to "Include Directories" and add "C:\Program Files\OpenNI\Lib64" to "Library Directories"
+2. Expand "VC++ Directories", add "C:\Program Files\OpenNI2\Include" to "Include Directories" and add "C:\Program Files\OpenNI2\Lib" to "Library Directories"
 
 3. If you are developing a 32-bit application in a 64-bit machine, the paths might modified to "C:\Program Files (x86)\OpenNI2\Include" and "C:\Program Files (x86)\OpenNI2\Lib"
 
-4. If you are developing a 32-bit application in a native 32-bit machine, the paths might modified to "C:\Program Files\OpenNI2\Include" and "C:\Program Files\OpenNI2\Lib"
+4. Then, expand "Linker" in "Configuration Properties", add "OpenNI2.lib" to "Input->Additional Dependencies".
 
-5. Then, expand "Linker" in "Configuration Properties", add "OpenNI2.lib" to "Input->Additional Dependencies".
+5. Develop your application.
 
-6. Develop your application.
+6. Before test your application, copy content in Redist folder to the folder where execution is. The Redist folder is C:\Program Files\OpenNI2\Redist or C:\Program Files (x86)\OpenNI2\Redist depends on your target platform.
 
-7. Before test your application, copy content in Redist folder to the folder where execution is. The Redist folder is C:\Program Files\OpenNI2\Redist or C:\Program Files (x86)\OpenNI2\Redist depends on your target platform.
-
-8. And copy LIPS modules DeviceModules2.dll and RvcLib.dll from C:\Program Files\LIPSToF\x64\ (or C:\Program Files\LIPSToF\x86\, depends on your target platform) to OpenNI2\Drivers
+7. And copy LIPS modules DeviceModules2.dll and RvcLib.dll from C:\Program Files\LIPSToF\x64\ (or C:\Program Files\LIPSToF\x86\, depends on your target platform) to OpenNI2\Drivers
