@@ -40,6 +40,12 @@ git clone https://github.com/lips-hci/openni2_windows.git LIPS_Sample
 * Copy content in Redist folder to the folder where execution is. The Redist folder is C:\Program Files\OpenNI2\Redist or C:\Program Files (x86)\OpenNI2\Redist depends on your target platform.
 * Copy LIPS modules DeviceModules2.dll and RvcLib.dll from C:\Program Files\LIPSToF\x64\ (or C:\Program Files\LIPSToF\x86\, depends on your target platform) to OpenNI2\Drivers
 
+##### Ni2SimpleViewer #####
+
+* Install OpenCV 2.4.11 (or later). (Refer [OpenCV.org] (http://opencv.org/downloads.html) ). Assume you downloaded and extracted to C:\opencv
+* Launch Visual Studio IDE by clicking Ni2SimpleViewer\Ni2SimpleViewer.sln.
+* The example is created with Visual Studio 2012. You might be hinted that Visual Studio would like to update some files to adapt the new tool set if your Visual Studio version is higher than Visual Studio 2012.
+
 #### Build your own application ####
 You can base the samples we provided to develop your own application. What you need to know to create a new project are:
 
