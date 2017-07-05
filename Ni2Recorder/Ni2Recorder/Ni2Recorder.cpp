@@ -3,10 +3,17 @@
 
 #include "stdafx.h"
 
+//#define DEVICE_M3
+
 #define RECORDING_FILE_NAME "recording.oni"
 #define RECORDING_FRAME 100
+#ifdef DEVICE_M3
+#define RECORDING_WIDTH 80
+#define RECORDING_HEIGHT 60
+#else
 #define RECORDING_WIDTH 640
 #define RECORDING_HEIGHT 480
+#endif
 #define RECORDING_FPS 30
 
 using namespace std;
@@ -41,6 +48,7 @@ int _tmain(int argc, _TCHAR* argv[])
         }
     }
 
+#ifndef DEVICE_M3
     VideoStream vsColor;
     if ( STATUS_OK != vsColor.create( devDevice, SENSOR_COLOR ) ) {
         cout << "Cannot create color stream on device: " << OpenNI::getExtendedError() << endl;
@@ -52,7 +60,7 @@ int _tmain(int argc, _TCHAR* argv[])
             return 1;
         }
     }
-
+#endif
     Recorder recRecorder;
     VideoFrameRef depth_frame;
     int frameStartIndex = 0;
@@ -60,10 +68,13 @@ int _tmain(int argc, _TCHAR* argv[])
         cout << "Cannot create recoder: " << OpenNI::getExtendedError() << endl;
     } else {
         recRecorder.attach( vsDepth );
+#ifndef DEVICE_M3
         recRecorder.attach( vsColor );
-
+#endif
         vsDepth.start();
+#ifndef DEVICE_M3
         vsColor.start();
+#endif
         recRecorder.start();
         while (true) {
             if ( STATUS_OK != vsDepth.readFrame(&depth_frame) )
@@ -78,7 +89,9 @@ int _tmain(int argc, _TCHAR* argv[])
                    if (( depth_frame.getFrameIndex() - frameStartIndex) > RECORDING_FRAME ) {
                        recRecorder.stop();
                        vsDepth.stop();
+#ifndef DEVICE_M3
                        vsColor.stop();
+#endif
                        break;
                    } else {
                        cout << "Current index: " << depth_frame.getFrameIndex() << endl; 
@@ -88,7 +101,9 @@ int _tmain(int argc, _TCHAR* argv[])
         }
         recRecorder.destroy();
         vsDepth.destroy();
+#ifndef DEVICE_M3
         vsColor.destroy();
+#endif
     }
     devDevice.close();
     OpenNI::shutdown();
