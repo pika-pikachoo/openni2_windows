@@ -52,12 +52,26 @@ int _tmain(int argc, _TCHAR* argv[])
         }
     }
 
+    VideoStream vsIR;
+    if ( STATUS_OK != vsIR.create( devDevice, SENSOR_IR ) ) {
+        cout << "Cannot create IR stream on device: " << OpenNI::getExtendedError() << endl;
+        return 1;
+    } else {
+        mode.setPixelFormat(PIXEL_FORMAT_GRAY16);
+        if ( STATUS_OK != vsIR.setVideoMode( mode ) ) {
+            cout << "Cannot set color mode: " << OpenNI::getExtendedError() << endl;
+            return 1;
+        }
+    }
+
     vsDepth.start();
     vsColor.start();
+    vsIR.start();
     VideoFrameRef depth_frame;
     VideoFrameRef color_frame;
+    VideoFrameRef ir_frame;
 
-    while (true) {
+    while ( true ) {
         if ( vsDepth.isValid() ) {
             if ( STATUS_OK == vsDepth.readFrame( &depth_frame) ) {
                 Mat imgDepth ( depth_frame.getHeight(), depth_frame.getWidth(), CV_16UC1, (void*)depth_frame.getData() );
@@ -74,10 +88,19 @@ int _tmain(int argc, _TCHAR* argv[])
                 imshow( "Color view", imgBGRColor );
             }
         }
+        if ( vsIR.isValid() ) {
+            if ( STATUS_OK == vsIR.readFrame( &ir_frame ) ) {
+                Mat imgIR ( ir_frame.getHeight(), ir_frame.getWidth(), CV_16UC1, (void*)ir_frame.getData() );
+                Mat img8bitIR;
+                imgIR.convertTo( img8bitIR, CV_8U, 255.0 / 5000 );
+                imshow( "IR view", img8bitIR );
+            }
+        }
         waitKey(1);
     }
     vsDepth.destroy();
     vsColor.destroy();
+    vsIR.destroy();
  
     devDevice.close();
     OpenNI::shutdown();
