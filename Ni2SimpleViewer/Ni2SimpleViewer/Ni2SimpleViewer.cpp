@@ -116,14 +116,25 @@ int _tmain(int argc, _TCHAR* argv[])
     VideoFrameRef depth_frame;
     VideoFrameRef color_frame;
     VideoFrameRef ir_frame;
-
+    bool quit = false;
+    bool capture = false;
+    bool showText = true;
+    vector<int> quality;
+    quality.push_back(CV_IMWRITE_PNG_COMPRESSION);
+    quality.push_back(0);
     while ( true ) {
         if ( (option & DEPTH) && vsDepth.isValid() ) {
             if ( STATUS_OK == vsDepth.readFrame( &depth_frame) ) {
                 Mat imgDepth ( depth_frame.getHeight(), depth_frame.getWidth(), CV_16UC1, (void*)depth_frame.getData() );
                 Mat img8bitDepth;
                 imgDepth.convertTo( img8bitDepth, CV_8U, 255.0 / 4096 );
+                if ( showText ) {
+                    putText(img8bitDepth, string("FrameID:") + to_string(depth_frame.getFrameIndex()), Point(5, 20), FONT_HERSHEY_DUPLEX, (depth_frame.getWidth()>320)?1.0:0.5, Scalar(255, 255, 255));
+                }
                 imshow( "Depth view", img8bitDepth );
+                if ( capture ) {
+                    imwrite( "depth_" + std::to_string(depth_frame.getFrameIndex()) + ".png", img8bitDepth, quality );
+                }
             }
         }
 
@@ -132,7 +143,13 @@ int _tmain(int argc, _TCHAR* argv[])
                 Mat imgColor( color_frame.getHeight(), color_frame.getWidth(), CV_8UC3, (void*)color_frame.getData() );
                 Mat imgBGRColor;
                 cvtColor( imgColor, imgBGRColor, CV_RGB2BGR );
+                if ( showText ) {
+                    putText(imgBGRColor, string("FrameID:") + to_string(color_frame.getFrameIndex()), Point(5, 20), FONT_HERSHEY_DUPLEX, (color_frame.getWidth()>320)?1.0:0.5, Scalar(200, 0, 0));
+                }
                 imshow( "Color view", imgBGRColor );
+                if ( capture ) {
+                    imwrite( "image_" + std::to_string(color_frame.getFrameIndex()) + ".png", imgBGRColor, quality );
+                }
             }
         }
 
@@ -141,12 +158,43 @@ int _tmain(int argc, _TCHAR* argv[])
                 Mat imgIR ( ir_frame.getHeight(), ir_frame.getWidth(), CV_16UC1, (void*)ir_frame.getData() );
                 Mat img8bitIR;
                 imgIR.convertTo( img8bitIR, CV_8U, 255.0 / 4096 );
+                if ( showText ) {
+                    putText(img8bitIR, string("FrameID:") + to_string(ir_frame.getFrameIndex()), Point(5, 20), FONT_HERSHEY_DUPLEX, (ir_frame.getWidth()>320)?1.0:0.5, Scalar(200, 0, 0));
+                }
                 imshow( "IR view", img8bitIR );
+                if ( capture ) {
+                    imwrite( "ir_" + std::to_string(ir_frame.getFrameIndex()) + ".png", img8bitIR, quality );
+                }
             }
         }
-        waitKey(1);
+        int keyInput = waitKey( 1 );
+        if ( keyInput != -1 ) {
+            switch ( keyInput ) {
+            case 'Q': // Q = 81
+            case 'q': // q = 113
+                //q for exit
+                quit = true;
+                break;
+            case 'C': // C = 67
+            case 'c': // c = 99
+                // depth
+                capture = true;
+                break;
+            case 'F': // F = 70
+            case 'f': // f = 102
+                showText = (showText)?false:true;
+                break;
+            default:
+                break;
+            }
+        } else {
+            capture = false;
+        }
+        if ( quit ) {
+            break;
+        }
     }
-    if (option & DEPTH) vsDepth.destroy();
+    if ( option & DEPTH ) vsDepth.destroy();
     if ( option & IMAGE ) vsColor.destroy();
     if ( option & IR ) vsIR.destroy();
  
