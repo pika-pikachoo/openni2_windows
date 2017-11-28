@@ -119,6 +119,7 @@ int _tmain(int argc, _TCHAR* argv[])
     bool quit = false;
     bool capture = false;
     bool showText = true;
+    bool mirror = false;
     vector<int> quality;
     quality.push_back(CV_IMWRITE_PNG_COMPRESSION);
     quality.push_back(0);
@@ -128,6 +129,9 @@ int _tmain(int argc, _TCHAR* argv[])
                 Mat imgDepth ( depth_frame.getHeight(), depth_frame.getWidth(), CV_16UC1, (void*)depth_frame.getData() );
                 Mat img8bitDepth;
                 imgDepth.convertTo( img8bitDepth, CV_8U, 255.0 / 4096 );
+                if ( mirror ) {
+                    flip(img8bitDepth, img8bitDepth, 1);
+                }
                 if ( showText ) {
                     putText(img8bitDepth, string("FrameID:") + to_string(depth_frame.getFrameIndex()), Point(5, 20), FONT_HERSHEY_DUPLEX, (depth_frame.getWidth()>320)?1.0:0.5, Scalar(255, 255, 255));
                 }
@@ -143,6 +147,9 @@ int _tmain(int argc, _TCHAR* argv[])
                 Mat imgColor( color_frame.getHeight(), color_frame.getWidth(), CV_8UC3, (void*)color_frame.getData() );
                 Mat imgBGRColor;
                 cvtColor( imgColor, imgBGRColor, CV_RGB2BGR );
+                if ( mirror ) {
+                    flip(imgBGRColor, imgBGRColor, 1);
+                }
                 if ( showText ) {
                     putText(imgBGRColor, string("FrameID:") + to_string(color_frame.getFrameIndex()), Point(5, 20), FONT_HERSHEY_DUPLEX, (color_frame.getWidth()>320)?1.0:0.5, Scalar(200, 0, 0));
                 }
@@ -158,6 +165,9 @@ int _tmain(int argc, _TCHAR* argv[])
                 Mat imgIR ( ir_frame.getHeight(), ir_frame.getWidth(), CV_16UC1, (void*)ir_frame.getData() );
                 Mat img8bitIR;
                 imgIR.convertTo( img8bitIR, CV_8U, 255.0 / 4096 );
+                if ( mirror ) {
+                    flip(img8bitIR, img8bitIR, 1);
+                }
                 if ( showText ) {
                     putText(img8bitIR, string("FrameID:") + to_string(ir_frame.getFrameIndex()), Point(5, 20), FONT_HERSHEY_DUPLEX, (ir_frame.getWidth()>320)?1.0:0.5, Scalar(200, 0, 0));
                 }
@@ -183,6 +193,10 @@ int _tmain(int argc, _TCHAR* argv[])
             case 'F': // F = 70
             case 'f': // f = 102
                 showText = (showText)?false:true;
+                break;
+            case 'M': // M = 77
+            case 'm': // m = 109
+                mirror = (mirror)?false:true;
                 break;
             default:
                 break;
