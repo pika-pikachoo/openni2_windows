@@ -68,26 +68,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\opencv\build\include;C:\Program Files %28x86%29\OpenNI2\Include;C:\Program Files %28x86%29\OpenNI\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\opencv\build\x86\vc11\staticlib;C:\Program Files %28x86%29\OpenNI2\Lib;C:\Program Files %28x86%29\OpenNI\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\opencv\build\include;C:\Program Files %28x86%29\OpenNI2\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opencv\build\x86\vc11\staticlib;C:\Program Files %28x86%29\OpenNI2\Lib;$(LibraryPath)</LibraryPath>
     <TargetName>Lips$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\opencv\build\include;C:\Program Files\OpenNI2\Include;C:\Program Files\OpenNI\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\opencv\build\x64\vc11\staticlib;C:\Program Files\OpenNI2\Lib;C:\Program Files\OpenNI\Lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\opencv\build\include;C:\Program Files\OpenNI2\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opencv\build\x64\vc11\staticlib;C:\Program Files\OpenNI2\Lib;$(LibraryPath)</LibraryPath>
     <TargetName>Lips$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\opencv\build\include;C:\Program Files %28x86%29\OpenNI2\Include;C:\Program Files %28x86%29\OpenNI\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\opencv\build\x86\vc11\staticlib;C:\Program Files %28x86%29\OpenNI2\Lib;C:\Program Files %28x86%29\OpenNI\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\opencv\build\include;C:\Program Files %28x86%29\OpenNI2\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opencv\build\x86\vc11\staticlib;C:\Program Files %28x86%29\OpenNI2\Lib;$(LibraryPath)</LibraryPath>
     <TargetName>LIps$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\opencv\build\include;C:\Program Files\OpenNI2\Include;C:\Program Files\OpenNI\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\opencv\build\x64\vc11\staticlib;C:\Program Files\OpenNI2\Lib;C:\Program Files\OpenNI\Lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\opencv\build\include;C:\Program Files\OpenNI2\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opencv\build\x64\vc11\staticlib;C:\Program Files\OpenNI2\Lib;$(LibraryPath)</LibraryPath>
     <TargetName>Lips$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
