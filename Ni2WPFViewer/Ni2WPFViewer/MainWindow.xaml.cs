@@ -58,10 +58,10 @@ namespace Ni2WPFViewer
                 MessageBox.Show(errMsg, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            this.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke((Action)(() =>
             {
                 this.txtDevice.Text = "OpenNI2 Module is ready.\n";
-            });
+            }));
         }
 
         private void OpenNI2_Terminate()
@@ -107,10 +107,10 @@ namespace Ni2WPFViewer
                 this.bIsDeviceOpened = false;
             }
 
-            this.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke((Action)(() =>
             {
                 this.txtDevice.Text = this.strDevice;
-            });
+            }));
         }
 
         private void OpenNI2_StartDepth()
@@ -149,10 +149,10 @@ namespace Ni2WPFViewer
 
                     VideoMode mode = this.mStream.VideoMode;
                     this.strVideoMode = string.Format("Depth is now streaming: {0} x {1} @ {2}", mode.Resolution.Width, mode.Resolution.Height, mode.Fps);
-                    this.Dispatcher.Invoke(() =>
+                    this.Dispatcher.Invoke((Action)(() =>
                     {
                         this.txtDevice.Text = this.strDevice + this.strVideoMode;
-                    });
+                    }));
                 }
                 else
                 {
@@ -174,10 +174,10 @@ namespace Ni2WPFViewer
                 this.mStream.Stop();
                 this.mStream.OnNewFrame -= this.OpenNI2_OnNewFrame;
                 this.strVideoMode = "Depth stream is stopped.";
-                this.Dispatcher.Invoke(() =>
+                this.Dispatcher.Invoke((Action)(() =>
                 {
                     this.txtDevice.Text = this.strDevice + strVideoMode;
-                });
+                }));
             }
         }
 
@@ -213,10 +213,10 @@ namespace Ni2WPFViewer
                             this.mImage.EndInit();
                             this.mImage.Freeze();
                         }
-                        this.Dispatcher.Invoke(() =>
+                        this.Dispatcher.Invoke((Action)(() =>
                         {
                             this.ImgDepth.Source = this.mImage;
-                        });
+                        }));
                     }
                 }
             }

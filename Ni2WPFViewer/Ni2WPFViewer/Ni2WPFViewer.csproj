@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Ni2WPFViewer</RootNamespace>
     <AssemblyName>Ni2WPFViewer</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -120,6 +120,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(ProjectDir)Ni2Wrapper.Net\$(PlatformName)\$(ConfigurationName)\NiWrapper.dll" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+    <PostBuildEvent>xcopy /S /D /Y "$(ProjectDir)Ni2Wrapper.Net\$(PlatformName)\$(ConfigurationName)\NiWrapper.*" "$(ProjectDir)$(OutDir)"
+xcopy /S /D /Y "$(ProjectDir)Ni2Wrapper.Net\$(PlatformName)\$(ConfigurationName)\OpenNI*" "$(ProjectDir)$(OutDir)"
+xcopy /S /D /Y "$(ProgramW6432)\OpenNI2\Tools\OpenNI2\Drivers\*.dll" "$(ProjectDir)$(OutDir)OpenNI2\Drivers\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
